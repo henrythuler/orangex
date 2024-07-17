@@ -1,0 +1,97 @@
+<div class="w-full h-screen flex">
+    
+    <aside class="hidden md:block h-full w-1/4 py-4 border-r fixed start-0">
+
+        <div class="h-full w-3/5 m-auto flex flex-col gap-8 justify-between">
+
+            <div class="flex flex-col gap-8">
+                
+                <img class="w-16" src="./assets/images/logo_login.png" alt="Logo">
+
+                <a class="flex items-center gap-2 font-semibold" href="#"><img src="/assets/images/home_outline.png" alt=""> Home</a>
+                <a class="flex items-center gap-2 font-semibold" href="#"><img src="/assets/images/explore.png" alt=""> Explorar</a>
+                <a class="flex items-center gap-2 font-semibold" href="#"><img src="/assets/images/notification.png" alt=""> Notificações</a>
+                <a class="flex items-center gap-2 font-semibold" href="#"><img src ="/assets/images/messages.png" alt=""> Mensagens</a>
+                <a class="flex items-center gap-2 font-semibold" href="#"><img src="/assets/images/profile_outline.png" alt=""> Perfil</a>
+                <a class="flex items-center gap-2 font-semibold" href="#"><img src="/assets/images/more.png" alt=""> Mais</a>
+    
+            </div>
+    
+            <button class="w-full font-bold text-white text-lg bg-[#DC6400] py-2 rounded-lg" type="submit">Tweet</button>
+    
+            <a class="flex flex-col lg:flex-row lg:items-center lg:justify-start gap-2 mt-4" routerLink="/teste">
+
+                <img class="w-14 rounded-full" src="./assets/images/profile_pic_example.png" alt="Profile pic">
+
+                <div>
+
+                    <p class="font-semibold">User Test</p>
+                    <p class="text-slate-500">&#64;usuarioTest</p>
+
+                </div>
+
+            </a>
+
+        </div>
+
+    </aside>
+
+    <main class="w-full md:w-2/4 md:absolute md:inset-x-1/4">
+
+        <router-outlet></router-outlet>
+
+    </main>
+
+    <div class="hidden md:block h-full w-1/4 border-l px-4 py-8 lg:p-8 fixed end-0">
+
+        <form>   
+            <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+            <div class="relative">
+                <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                    </svg>
+                </div>
+                <input type="search" id="default-search" class="block w-full p-4 ps-10 text-sm outline-0 bg-[#EFF3F4] rounded-full" placeholder="Search Tweets" required />
+            </div>
+        </form>
+
+        <div class="w-full mt-8 bg-[#F7F9F9] px-4 lg:px-6 py-4 rounded-lg">
+
+            <h3 class="font-bold text-lg">Usuários recente</h3>
+
+            <div class="flex flex-col gap-6 mt-4">
+
+                <a class="flex flex-col lg:flex-row lg:items-center gap-2" href="#">
+
+                    <img class="w-14 rounded-full" src="./assets/images/profile_pic_example.png" alt="Profile pic">
+    
+                    <div>
+    
+                        <p class="font-semibold">User Test</p>
+                        <p class="text-slate-500">&#64;usuarioTest</p>
+    
+                    </div>
+    
+                </a>
+    
+                <a class="flex flex-col lg:flex-row lg:items-center gap-2" href="#">
+    
+                    <img class="w-14 rounded-full" src="./assets/images/profile_pic_example.png" alt="Profile pic">
+    
+                    <div>
+    
+                        <p class="font-semibold">User Test</p>
+                        <p class="text-slate-500">&#64;usuarioTest</p>
+    
+                    </div>
+    
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

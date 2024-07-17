@@ -9,6 +9,8 @@ import { JoinComponent } from './components/account/join/join.component';
 import { ProfileComponent } from './components/social/profile/profile.component';
 import { FeedComponent } from './components/social/feed/feed.component';
 import { HomeComponent } from './components/social/home/home.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -21,10 +23,11 @@ import { HomeComponent } from './components/social/home/home.component';
     HomeComponent
   ],
   imports: [
+    ReactiveFormsModule,
     BrowserModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [provideHttpClient(withInterceptorsFromDi())],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

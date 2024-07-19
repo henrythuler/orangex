@@ -1,70 +1,182 @@
-<div class="w-full h-screen flex justify-center items-center">
+<div class="w-full min-h-screen flex justify-center items-center py-4">
     
     <main class="flex flex-col h-max w-1/3 min-w-[300px]">
         
         <img class="m-auto w-16 mb-6" src="./assets/images/logo_login.png" alt="Logo">
 
-        <h2 class="font-black text-3xl mb-6">Criar Conta</h2>
+        <h2 class="font-black text-3xl mb-4">Criar Conta</h2>
 
-        <form class="flex flex-col gap-6 w-full">
-            
-            <div class="relative w-full h-10">
-                <input
-                  class="peer w-full h-full bg-transparent text-blue-gray-700 outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 focus:border-t-transparent text-sm px-3 py-6 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
-                  placeholder=" " />
-                  <label class="flex w-full h-full select-none pointer-events-none absolute left-0 !overflow-visible truncate peer-placeholder-shown:text-blue-gray-500 leading-tight peer-focus:leading-tight peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500 transition-all -top-0.5 peer-focus:-top-1.5 peer-placeholder-shown:text-sm text-[11px] peer-focus:text-[11px] before:content[' '] before:block before:box-border before:w-2.5 before:h-1.5 before:mt-[6.5px] before:mr-1 peer-placeholder-shown:before:border-transparent before:rounded-tl-md before:border-t peer-focus:before:border-t-2 before:border-l peer-focus:before:border-l-2 before:pointer-events-none before:transition-all peer-disabled:before:border-transparent after:content[' '] after:block after:flex-grow after:box-border after:w-2.5 after:h-1.5 after:mt-[6.5px] after:ml-1 peer-placeholder-shown:after:border-transparent after:rounded-tr-md after:border-t peer-focus:after:border-t-2 after:border-r peer-focus:after:border-r-2 after:pointer-events-none after:transition-all peer-disabled:after:border-transparent peer-placeholder-shown:leading-[3.75] text-gray-500 peer-focus:text-gray-900 before:border-blue-gray-200 peer-focus:before:!border-gray-900 after:border-blue-gray-200 peer-focus:after:!border-gray-900">Nome</label>
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-6 w-full">
+            <!--
+            <div *ngIf="registerError" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative -mb-4 -mt-4" role="alert">
+                <strong class="font-bold">Houve um problema no seu cadastro...</strong>
+            </div>
+            -->
+
+            <div *ngIf="name?.invalid && name?.touched" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative -mb-2 -mt-2" role="alert">
+                <strong *ngIf="name?.errors!['required']" class="font-bold">Nome é obrigatório</strong>
+                <strong *ngIf="name?.errors!['minlength']" class="font-bold">Nome deve ter no mínimo 2 caracteres</strong>
+                <strong *ngIf="name?.errors!['maxlength']" class="font-bold">Nome deve ter no máximo 55 caracteres</strong>
+                <strong *ngIf="name?.errors!['notOnlyWhitespace']" class="font-bold">Nome não pode conter somente espaços</strong>
             </div>
 
-            <div class="relative w-full h-10">
+            <div class="relative">
                 <input
-                  class="peer w-full h-full bg-transparent text-blue-gray-700 outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 focus:border-t-transparent text-sm px-3 py-6 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
-                  placeholder=" " />
-                  <label class="flex w-full h-full select-none pointer-events-none absolute left-0 !overflow-visible truncate peer-placeholder-shown:text-blue-gray-500 leading-tight peer-focus:leading-tight peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500 transition-all -top-0.5 peer-focus:-top-1.5 peer-placeholder-shown:text-sm text-[11px] peer-focus:text-[11px] before:content[' '] before:block before:box-border before:w-2.5 before:h-1.5 before:mt-[6.5px] before:mr-1 peer-placeholder-shown:before:border-transparent before:rounded-tl-md before:border-t peer-focus:before:border-t-2 before:border-l peer-focus:before:border-l-2 before:pointer-events-none before:transition-all peer-disabled:before:border-transparent after:content[' '] after:block after:flex-grow after:box-border after:w-2.5 after:h-1.5 after:mt-[6.5px] after:ml-1 peer-placeholder-shown:after:border-transparent after:rounded-tr-md after:border-t peer-focus:after:border-t-2 after:border-r peer-focus:after:border-r-2 after:pointer-events-none after:transition-all peer-disabled:after:border-transparent peer-placeholder-shown:leading-[3.75] text-gray-500 peer-focus:text-gray-900 before:border-blue-gray-200 peer-focus:before:!border-gray-900 after:border-blue-gray-200 peer-focus:after:!border-gray-900">E-mail</label>
+                type="text"
+                formControlName="name"
+                class="peer p-4 block w-full border border-blue-gray-700 rounded-lg text-sm placeholder:text-transparent focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none
+                focus:pt-6
+                focus:pb-2
+                [&:not(:placeholder-shown)]:pt-6
+                [&:not(:placeholder-shown)]:pb-2
+                autofill:pt-6
+                autofill:pb-2"
+                placeholder=" "/>
+                <label class="absolute top-0 start-0 p-4 h-full text-sm truncate pointer-events-none transition ease-in-out duration-100 border border-transparent origin-[0_0] peer-disabled:opacity-50 peer-disabled:pointer-events-none
+                  peer-focus:scale-90
+                  peer-focus:translate-x-0.5
+                  peer-focus:-translate-y-1.5
+                  peer-focus:text-gray-500 dark:peer-focus:text-neutral-500
+                  peer-[:not(:placeholder-shown)]:scale-90
+                  peer-[:not(:placeholder-shown)]:translate-x-0.5
+                  peer-[:not(:placeholder-shown)]:-translate-y-1.5
+                  peer-[:not(:placeholder-shown)]:text-gray-500 dark:peer-[:not(:placeholder-shown)]:text-neutral-500 dark:text-neutral-500">Nome</label>
             </div>
 
-            <div class="relative w-full h-10">
-                <input
-                  class="peer w-full h-full bg-transparent text-blue-gray-700 outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 focus:border-t-transparent text-sm px-3 py-6 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
-                  placeholder=" " />
-                  <label class="flex w-full h-full select-none pointer-events-none absolute left-0 !overflow-visible truncate peer-placeholder-shown:text-blue-gray-500 leading-tight peer-focus:leading-tight peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500 transition-all -top-0.5 peer-focus:-top-1.5 peer-placeholder-shown:text-sm text-[11px] peer-focus:text-[11px] before:content[' '] before:block before:box-border before:w-2.5 before:h-1.5 before:mt-[6.5px] before:mr-1 peer-placeholder-shown:before:border-transparent before:rounded-tl-md before:border-t peer-focus:before:border-t-2 before:border-l peer-focus:before:border-l-2 before:pointer-events-none before:transition-all peer-disabled:before:border-transparent after:content[' '] after:block after:flex-grow after:box-border after:w-2.5 after:h-1.5 after:mt-[6.5px] after:ml-1 peer-placeholder-shown:after:border-transparent after:rounded-tr-md after:border-t peer-focus:after:border-t-2 after:border-r peer-focus:after:border-r-2 after:pointer-events-none after:transition-all peer-disabled:after:border-transparent peer-placeholder-shown:leading-[3.75] text-gray-500 peer-focus:text-gray-900 before:border-blue-gray-200 peer-focus:before:!border-gray-900 after:border-blue-gray-200 peer-focus:after:!border-gray-900">Senha</label>
+            <div *ngIf="email?.invalid && email?.touched" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative -mb-2 -mt-2" role="alert">
+                <strong *ngIf="email?.errors!['required']" class="font-bold">E-mail é obrigatório</strong>
+                <strong *ngIf="email?.errors!['pattern']" class="font-bold">E-mail inválido</strong>
             </div>
 
-            <div class="relative w-full h-10">
+            <div class="relative">
                 <input
-                  class="peer w-full h-full bg-transparent text-blue-gray-700 outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 focus:border-t-transparent text-sm px-3 py-6 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
-                  placeholder=" " />
-                  <label class="flex w-full h-full select-none pointer-events-none absolute left-0 !overflow-visible truncate peer-placeholder-shown:text-blue-gray-500 leading-tight peer-focus:leading-tight peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500 transition-all -top-0.5 peer-focus:-top-1.5 peer-placeholder-shown:text-sm text-[11px] peer-focus:text-[11px] before:content[' '] before:block before:box-border before:w-2.5 before:h-1.5 before:mt-[6.5px] before:mr-1 peer-placeholder-shown:before:border-transparent before:rounded-tl-md before:border-t peer-focus:before:border-t-2 before:border-l peer-focus:before:border-l-2 before:pointer-events-none before:transition-all peer-disabled:before:border-transparent after:content[' '] after:block after:flex-grow after:box-border after:w-2.5 after:h-1.5 after:mt-[6.5px] after:ml-1 peer-placeholder-shown:after:border-transparent after:rounded-tr-md after:border-t peer-focus:after:border-t-2 after:border-r peer-focus:after:border-r-2 after:pointer-events-none after:transition-all peer-disabled:after:border-transparent peer-placeholder-shown:leading-[3.75] text-gray-500 peer-focus:text-gray-900 before:border-blue-gray-200 peer-focus:before:!border-gray-900 after:border-blue-gray-200 peer-focus:after:!border-gray-900">Usuário</label>
+                type="text"
+                formControlName="email"
+                class="peer p-4 block w-full border border-blue-gray-700 rounded-lg text-sm placeholder:text-transparent focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none
+                focus:pt-6
+                focus:pb-2
+                [&:not(:placeholder-shown)]:pt-6
+                [&:not(:placeholder-shown)]:pb-2
+                autofill:pt-6
+                autofill:pb-2"
+                placeholder=" "/>
+                <label class="absolute top-0 start-0 p-4 h-full text-sm truncate pointer-events-none transition ease-in-out duration-100 border border-transparent origin-[0_0] peer-disabled:opacity-50 peer-disabled:pointer-events-none
+                  peer-focus:scale-90
+                  peer-focus:translate-x-0.5
+                  peer-focus:-translate-y-1.5
+                  peer-focus:text-gray-500 dark:peer-focus:text-neutral-500
+                  peer-[:not(:placeholder-shown)]:scale-90
+                  peer-[:not(:placeholder-shown)]:translate-x-0.5
+                  peer-[:not(:placeholder-shown)]:-translate-y-1.5
+                  peer-[:not(:placeholder-shown)]:text-gray-500 dark:peer-[:not(:placeholder-shown)]:text-neutral-500 dark:text-neutral-500">E-mail</label>
+            </div>
+
+            <div *ngIf="password?.invalid && password?.touched" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative -mb-2 -mt-2" role="alert">
+                <strong *ngIf="password?.errors!['required']" class="font-bold">Senha é obrigatória</strong>
+                <strong *ngIf="password?.errors!['minlength']" class="font-bold">Senha deve ter no mínimo 8 caracteres</strong>
+                <strong *ngIf="password?.errors!['maxlength']" class="font-bold">Senha deve ter no máximo 24 caracteres</strong>
+                <strong *ngIf="password?.errors!['notOnlyWhitespace']" class="font-bold">Senha não pode conter somente espaços</strong>
+            </div>
+
+            <div class="relative">
+                <input
+                type="password"
+                formControlName="password"
+                class="peer p-4 block w-full border border-blue-gray-700 rounded-lg text-sm placeholder:text-transparent focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none
+                focus:pt-6
+                focus:pb-2
+                [&:not(:placeholder-shown)]:pt-6
+                [&:not(:placeholder-shown)]:pb-2
+                autofill:pt-6
+                autofill:pb-2"
+                placeholder=" "/>
+                <label class="absolute top-0 start-0 p-4 h-full text-sm truncate pointer-events-none transition ease-in-out duration-100 border border-transparent origin-[0_0] peer-disabled:opacity-50 peer-disabled:pointer-events-none
+                  peer-focus:scale-90
+                  peer-focus:translate-x-0.5
+                  peer-focus:-translate-y-1.5
+                  peer-focus:text-gray-500 dark:peer-focus:text-neutral-500
+                  peer-[:not(:placeholder-shown)]:scale-90
+                  peer-[:not(:placeholder-shown)]:translate-x-0.5
+                  peer-[:not(:placeholder-shown)]:-translate-y-1.5
+                  peer-[:not(:placeholder-shown)]:text-gray-500 dark:peer-[:not(:placeholder-shown)]:text-neutral-500 dark:text-neutral-500">Senha</label>
+            </div>
+
+            <div *ngIf="username?.invalid && username?.touched" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative -mb-2 -mt-2" role="alert">
+                <strong *ngIf="username?.errors!['required']" class="font-bold">Usuário é obrigatório</strong>
+                <strong *ngIf="username?.errors!['minlength']" class="font-bold">Usuário deve ter no mínimo 2 caracteres</strong>
+                <strong *ngIf="username?.errors!['maxlength']" class="font-bold">Usuário deve ter no máximo 24 caracteres</strong>
+                <strong *ngIf="username?.errors!['notOnlyWhitespace']" class="font-bold">Usuário não pode conter somente espaços</strong>
+            </div>
+
+            <div class="relative">
+                <input
+                type="text"
+                formControlName="username"
+                class="peer p-4 block w-full border border-blue-gray-700 rounded-lg text-sm placeholder:text-transparent focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none
+                focus:pt-6
+                focus:pb-2
+                [&:not(:placeholder-shown)]:pt-6
+                [&:not(:placeholder-shown)]:pb-2
+                autofill:pt-6
+                autofill:pb-2"
+                placeholder=" "/>
+                <label class="absolute top-0 start-0 p-4 h-full text-sm truncate pointer-events-none transition ease-in-out duration-100 border border-transparent origin-[0_0] peer-disabled:opacity-50 peer-disabled:pointer-events-none
+                  peer-focus:scale-90
+                  peer-focus:translate-x-0.5
+                  peer-focus:-translate-y-1.5
+                  peer-focus:text-gray-500 dark:peer-focus:text-neutral-500
+                  peer-[:not(:placeholder-shown)]:scale-90
+                  peer-[:not(:placeholder-shown)]:translate-x-0.5
+                  peer-[:not(:placeholder-shown)]:-translate-y-1.5
+                  peer-[:not(:placeholder-shown)]:text-gray-500 dark:peer-[:not(:placeholder-shown)]:text-neutral-500 dark:text-neutral-500">Usuário</label>
             </div>
 
             <div class="w-full">
 
                 <h4 class="font-medium">Data de nascimento</h4>
-                <p class="mt-2 text-sm text-slate-500">Isso não será exibido publicamente. Confirme sua própria idade, mesmo se esta conta for de empresa, de um animal de estimação ou outros.</p>
                 
-                <div class="w-full flex justify-between">
+                <div *ngIf="(day?.invalid && day?.touched) || (month?.invalid && month?.touched) || (year?.invalid && year?.touched)" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative -mb-4" role="alert">
+                    <strong *ngIf="day?.errors!['required'] || month?.errors!['required'] || year?.errors!['required']" class="font-bold">Data de nascimento é obrigatória</strong>
+                </div>
 
-                    <select
-                    class="w-2/5 text-slate-500 border px-3 py-3 mt-2 rounded-[7px] border-blue-gray-200 outline-0 focus:text-black focus:border-gray-900"
-                    >
-                        <option disabled selected hidden>Mês</option>
-                    </select>
+                <div class="w-full flex justify-between">
                     
-                    <select
+                        <select formControlName="month"
+                        class="w-2/5 text-slate-500 border px-3 py-3 mt-2 rounded-[7px] border-blue-gray-200 outline-0 focus:text-black focus:border-gray-900"
+                        >
+                            <option disabled selected hidden>Mês</option>
+                            <option value="1">Janeiro</option>
+                            <option value="2">Fevereiro</option>
+                            <option value="3">Março</option>
+                            <option value="4">Abril</option>
+                            <option value="5">Maio</option>
+                            <option value="6">Junho</option>
+                            <option value="7">Julho</option>
+                            <option value="8">Agosto</option>
+                            <option value="9">Setembro</option>
+                            <option value="10">Outubro</option>
+                            <option value="11">Novembro</option>
+                            <option value="12">Dezembro</option>
+                        </select>
+
+                    <select formControlName="day"
                     class="w-1/4 text-slate-500 border px-3 py-3 mt-2 rounded-[7px] border-blue-gray-200 outline-0 focus:text-black focus:border-gray-900"
                     >
                         <option disabled selected hidden>Dia</option>
+                        <option *ngFor="let day of days">{{ day }}</option>
                     </select>
 
-                    <select
+                    <select formControlName="year"
                     class="w-1/4 text-slate-500 border px-3 py-3 mt-2 rounded-[7px] border-blue-gray-200 outline-0 focus:text-black focus:border-gray-900"
                     >
                         <option disabled selected hidden>Ano</option>
+                        <option *ngFor="let year of years">{{ year }}</option>
                     </select>
 
                 </div>
             </div>
 
-            <button class="w-full font-bold text-white text-lg bg-[#DC6400] py-2 rounded-full" type="submit">Criar conta</button>
+            <button class="w-full font-bold text-white text-lg bg-[#DC6400] py-2 rounded-full relative" [class.spinner]="loading" [disabled]="registerForm.invalid || loading" type="submit">Criar conta</button>
             
         </form>
 

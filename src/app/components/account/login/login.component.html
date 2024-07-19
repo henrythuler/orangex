@@ -6,32 +6,73 @@
 
         <h2 class="font-black text-4xl mb-8">Entre no OrangeX</h2>
 
-        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-8 w-full">
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-6 w-full">
             
-            <div class="relative w-full h-10">
+            <div *ngIf="loginError" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative -mb-4 -mt-4" role="alert">
+                <strong class="font-bold">E-mail ou senha inválidos</strong>
+            </div>
+
+            <div *ngIf="email?.invalid && email?.touched" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative -mb-4 -mt-4" role="alert">
+                <strong *ngIf="email?.errors!['required']" class="font-bold">E-mail é obrigatório</strong>
+                <strong *ngIf="email?.errors!['pattern']" class="font-bold">E-mail inválido</strong>
+            </div>
+
+            <div class="relative">
                 <input
                   formControlName="email"
-                  class="peer w-full h-full bg-transparent text-blue-gray-700 outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 focus:border-t-transparent text-sm px-3 py-6 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
-                  placeholder=" " />
-                  <label class="flex w-full h-full select-none pointer-events-none absolute left-0 !overflow-visible truncate peer-placeholder-shown:text-blue-gray-500 leading-tight peer-focus:leading-tight peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500 transition-all -top-0.5 peer-focus:-top-1.5 peer-placeholder-shown:text-sm text-[11px] peer-focus:text-[11px] before:content[' '] before:block before:box-border before:w-2.5 before:h-1.5 before:mt-[6.5px] before:mr-1 peer-placeholder-shown:before:border-transparent before:rounded-tl-md before:border-t peer-focus:before:border-t-2 before:border-l peer-focus:before:border-l-2 before:pointer-events-none before:transition-all peer-disabled:before:border-transparent after:content[' '] after:block after:flex-grow after:box-border after:w-2.5 after:h-1.5 after:mt-[6.5px] after:ml-1 peer-placeholder-shown:after:border-transparent after:rounded-tr-md after:border-t peer-focus:after:border-t-2 after:border-r peer-focus:after:border-r-2 after:pointer-events-none after:transition-all peer-disabled:after:border-transparent peer-placeholder-shown:leading-[3.75] text-gray-500 peer-focus:text-gray-900 before:border-blue-gray-200 peer-focus:before:!border-gray-900 after:border-blue-gray-200 peer-focus:after:!border-gray-900">Email</label>
+                  class="peer p-4 block w-full border border-blue-gray-700 rounded-lg text-sm placeholder:text-transparent focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none
+                  focus:pt-6
+                  focus:pb-2
+                  [&:not(:placeholder-shown)]:pt-6
+                  [&:not(:placeholder-shown)]:pb-2
+                  autofill:pt-6
+                  autofill:pb-2"
+                  placeholder="you@email.com"/>
+                  <label class="absolute top-0 start-0 p-4 h-full text-sm truncate pointer-events-none transition ease-in-out duration-100 border border-transparent origin-[0_0] peer-disabled:opacity-50 peer-disabled:pointer-events-none
+                  peer-focus:scale-90
+                  peer-focus:translate-x-0.5
+                  peer-focus:-translate-y-1.5
+                  peer-focus:text-gray-500 dark:peer-focus:text-neutral-500
+                  peer-[:not(:placeholder-shown)]:scale-90
+                  peer-[:not(:placeholder-shown)]:translate-x-0.5
+                  peer-[:not(:placeholder-shown)]:-translate-y-1.5
+                  peer-[:not(:placeholder-shown)]:text-gray-500 dark:peer-[:not(:placeholder-shown)]:text-neutral-500 dark:text-neutral-500">Email</label>
             </div>
 
-            <div class="relative w-full h-10">
+            <div *ngIf="password?.invalid && password?.touched" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative -mb-4" role="alert">
+                <strong *ngIf="password?.errors!['required']" class="font-bold">Senha é obrigatória</strong>
+            </div>
+
+            <div class="relative">
                 <input
                   formControlName="password"
-                  class="peer w-full h-full bg-transparent text-blue-gray-700 outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 focus:border-t-transparent text-sm px-3 py-6 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                  class="peer p-4 block w-full border border-blue-gray-700 rounded-lg text-sm placeholder:text-transparent focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none
+                  focus:pt-6
+                  focus:pb-2
+                  [&:not(:placeholder-shown)]:pt-6
+                  [&:not(:placeholder-shown)]:pb-2
+                  autofill:pt-6
+                  autofill:pb-2"
                   placeholder=" "
                   type="password"/>
-                  <label class="flex w-full h-full select-none pointer-events-none absolute left-0 !overflow-visible truncate peer-placeholder-shown:text-blue-gray-500 leading-tight peer-focus:leading-tight peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500 transition-all -top-0.5 peer-focus:-top-1.5 peer-placeholder-shown:text-sm text-[11px] peer-focus:text-[11px] before:content[' '] before:block before:box-border before:w-2.5 before:h-1.5 before:mt-[6.5px] before:mr-1 peer-placeholder-shown:before:border-transparent before:rounded-tl-md before:border-t peer-focus:before:border-t-2 before:border-l peer-focus:before:border-l-2 before:pointer-events-none before:transition-all peer-disabled:before:border-transparent after:content[' '] after:block after:flex-grow after:box-border after:w-2.5 after:h-1.5 after:mt-[6.5px] after:ml-1 peer-placeholder-shown:after:border-transparent after:rounded-tr-md after:border-t peer-focus:after:border-t-2 after:border-r peer-focus:after:border-r-2 after:pointer-events-none after:transition-all peer-disabled:after:border-transparent peer-placeholder-shown:leading-[3.75] text-gray-500 peer-focus:text-gray-900 before:border-blue-gray-200 peer-focus:before:!border-gray-900 after:border-blue-gray-200 peer-focus:after:!border-gray-900">Senha</label>
+                  <label class="absolute top-0 start-0 p-4 h-full text-sm truncate pointer-events-none transition ease-in-out duration-100 border border-transparent origin-[0_0] peer-disabled:opacity-50 peer-disabled:pointer-events-none
+                  peer-focus:scale-90
+                  peer-focus:translate-x-0.5
+                  peer-focus:-translate-y-1.5
+                  peer-focus:text-gray-500 dark:peer-focus:text-neutral-500
+                  peer-[:not(:placeholder-shown)]:scale-90
+                  peer-[:not(:placeholder-shown)]:translate-x-0.5
+                  peer-[:not(:placeholder-shown)]:-translate-y-1.5
+                  peer-[:not(:placeholder-shown)]:text-gray-500 dark:peer-[:not(:placeholder-shown)]:text-neutral-500 dark:text-neutral-500">Senha</label>
             </div>
 
-            <button class="w-full font-bold text-white text-lg bg-[#DC6400] py-2 rounded-full" type="submit">Login</button>
+            <button class="w-full font-bold text-white text-lg bg-[#DC6400] py-2 rounded-full relative" [class.spinner]="loading" type="submit" [disabled]="loginForm.invalid || loading">Login</button>
             
         </form>
 
         <div class="mt-8 w-full flex justify-between transition-all">
             <a class="text-sky-400 duration-300 hover:text-[#DC6400]" href="#">Esqueceu a senha?</a>
-            <a class="text-sky-400 duration-300 hover:text-[#DC6400]" href="./signup.html">Criar uma conta</a>
+            <a class="text-sky-400 duration-300 hover:text-[#DC6400]" routerLink="/register">Criar uma conta</a>
         </div>
 
     </main>

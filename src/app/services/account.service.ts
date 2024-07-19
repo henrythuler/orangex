@@ -17,4 +17,18 @@ export class AccountService {
 
   }
   
+  register(name: string, email: string, password: string, username: string, birth_date: Date){
+
+    return this.http.post<{name: string, email: string, username: string, password: string, birth_date: Date}>(`${this.apiUrl}/auth/register`, {name, email, username, password, birth_date})
+
+  }
+
+  logout(){  }
+
+  isLogged(): boolean{
+
+    return !!localStorage.getItem('token')
+
+  }
+
 }
